@@ -3,7 +3,6 @@ language: go
 before_script:
   - printf "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - printf -- "-----BEGIN RSA PRIVATE KEY-----\n${git_ssh}-----END RSA PRIVATE KEY-----\n" > ~/.ssh/id_rsa
-  - cat ~/.ssh/id_rsa
   - chmod 600 ~/.ssh/id_rsa
   - eval `ssh-agent -s`
   - ssh-add ~/.ssh/id_rsa
