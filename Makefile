@@ -1,3 +1,3 @@
 push:
 	@git remote add deploy "${git_origin}"
-	git push -u deploy master
+	git push -u deploy -f master
