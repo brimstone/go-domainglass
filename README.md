@@ -5,6 +5,7 @@ Use case:
 - Take domainname as user input
 - Save domain and verification key to database
 - Send admin email address verification email
+  -  use postmaster@ if no admin or technical contact
 - When user clicks link in verification email, validate domain
 
 Worker:
@@ -28,6 +29,8 @@ TODO:
 - [X] Database with openshift
 - [ ] Database with Go
   - xorm?
+  - mysql if the env var is present
+  - Sqlite from memory if not
 - [ ] Static content with Go
 - [ ] Simple UI
 - [ ] Task runner/job queue
