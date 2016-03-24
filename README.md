@@ -1,5 +1,6 @@
-domaincheck
+domainglass
 ===========
+[![Build Status](https://travis-ci.org/brimstone/go-domainglass.svg?branch=master)](https://travis-ci.org/brimstone/go-domainglass)
 
 Use case:
 - Take domainname as user input
