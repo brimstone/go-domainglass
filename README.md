@@ -29,7 +29,7 @@ TODO:
 - [X] Database with openshift
 - [ ] Database with Go
   - xorm?
-  - mysql if the env var is present
+  - mysql if the env var is present, OPENSHIFT_MYSQL_DB_URL
   - Sqlite from memory if not
 - [ ] Static content with Go
 - [ ] Simple UI
