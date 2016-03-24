@@ -6,6 +6,8 @@ before_script:
   - chmod 600 ~/.ssh/id_rsa
   - eval `ssh-agent -s`
   - ssh-add ~/.ssh/id_rsa
+  - go get -u github.com/golang/lint/golint
+  - export PATH=$PATH:$GOPATH/bin
 
 script:
-  - make push
+  - make deploy
