@@ -34,7 +34,7 @@ TODO:
   - xorm?
   - mysql if the env var is present, OPENSHIFT_MYSQL_DB_URL
   - Sqlite from memory if not
-- [ ] Static content with Go
+- [X] Static content with Go
 - [ ] Simple UI
 - [ ] Task runner/job queue
 - [ ] Whois extract
