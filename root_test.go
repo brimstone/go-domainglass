@@ -11,12 +11,11 @@ import (
 	m "github.com/brimstone/go-domainglass"
 )
 
-func Test_Assets(*testing.T) {
-	ts := httptest.NewServer(m.Assets())
+func Test_Root(*testing.T) {
+	ts := httptest.NewServer(m.Root())
 	defer ts.Close()
 
-	fmt.Println(ts.URL + "/assets/style.css")
-	res, err := http.Get(ts.URL + "/assets/style.css")
+	res, err := http.Get(ts.URL)
 	if err != nil {
 		log.Fatal(err)
 	}

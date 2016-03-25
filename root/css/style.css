@@ -1,0 +1,15 @@
+.parallax {
+	height: 100vh;
+}
+.headroom {
+	padding-top: 10%;
+}
+
+.main {
+	text-align: center;
+}
+
+.credits {
+	background-color: lightblue;
+	text-align: center;
+}

@@ -7,10 +7,10 @@ import (
 )
 
 func init() {
-	http.HandleFunc("/", Hello)
+	http.HandleFunc("/api/v1/", Domain)
 }
 
 // Hello Handle main route
-func Hello(res http.ResponseWriter, req *http.Request) {
+func Domain(res http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(res, "hello, world from %s", runtime.Version())
 }
