@@ -1,6 +1,12 @@
 .parallax {
 	height: 100vh;
 }
+
+.parallax h1 {
+	font-size: 4em;
+	color: #eee;
+}
+
 .headroom {
 	padding-top: 30%;
 }
@@ -21,4 +27,10 @@
 .credits {
 	background-color: lightblue;
 	text-align: center;
+}
+
+.background {
+	width: 100%;
+	position: fixed;
+	z-index: -1;
 }
