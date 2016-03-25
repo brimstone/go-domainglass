@@ -11,7 +11,7 @@ import (
 	m "github.com/brimstone/go-domainglass"
 )
 
-func Test_Main(*testing.T) {
+func Test_Hello(*testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(m.Hello))
 	defer ts.Close()
 
