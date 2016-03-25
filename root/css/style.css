@@ -13,9 +13,8 @@
 
 .vmiddle div {
 	position: absolute;
-	height: 3em;
 	top: 50%;
-	margin-top: -1.5em;
+	margin-top: -5em;
 	width: 100%;
 }
 
