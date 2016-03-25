@@ -5,10 +5,19 @@
 	padding-top: 30%;
 }
 
-.main {
+.vmiddle {
+	position: relative;
 	text-align: center;
-	display:table-cell;
-	vertical-align: middle;
+	width: 100%;
+}
+
+.vmiddle div {
+	position: absolute;
+	height: 3em;
+	top: 50%;
+	margin-top: -1.5em;
+	border: 1px solid red;
+	width: 100%;
 }
 
 .credits {
