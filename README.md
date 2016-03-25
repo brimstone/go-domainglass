@@ -26,7 +26,7 @@ API:
 - `/{{domain}}/{{verificationHash}}.json` Shows details about checks as json
 
 TODO:
-- [ ] Setup Travis job to vet, lint, test, and push
+- [X] Setup Travis job to vet, lint, test, and push
 - [ ] Find free transactional email service
 - [ ] Find free domain email hosting service
 - [X] Database with openshift
