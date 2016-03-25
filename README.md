@@ -1,6 +1,8 @@
 domainglass
 ===========
 [![Build Status](https://travis-ci.org/brimstone/go-domainglass.svg?branch=master)](https://travis-ci.org/brimstone/go-domainglass)
+[![Coverage Status](https://coveralls.io/repos/github/brimstone/go-domainglass/badge.svg?branch=master)](https://coveralls.io/github/brimstone/go-domainglass?branch=master)
+
 
 Use case:
 - Take domainname as user input
