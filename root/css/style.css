@@ -1,3 +1,11 @@
+body {
+  background: url('../images/background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .parallax {
 	height: 100vh;
 }
@@ -5,10 +13,6 @@
 .parallax h1 {
 	font-size: 4em;
 	color: #eee;
-}
-
-.headroom {
-	padding-top: 30%;
 }
 
 .vmiddle {
@@ -19,18 +23,11 @@
 
 .vmiddle div {
 	position: absolute;
-	top: 50%;
-	margin-top: -5em;
+	top: 30%;
 	width: 100%;
 }
 
 .credits {
 	background-color: lightblue;
 	text-align: center;
-}
-
-.background {
-	width: 100%;
-	position: fixed;
-	z-index: -1;
 }
