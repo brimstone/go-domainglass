@@ -1,6 +1,9 @@
 package main
 
-import "github.com/go-xorm/xorm"
+import (
+	"github.com/go-xorm/xorm"
+	_ "github.com/mattn/go-sqlite3"
+)
 
 var orm *xorm.Engine
 
