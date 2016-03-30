@@ -11,9 +11,20 @@ import (
 var Mux *gin.Engine
 
 func InitEngine() {
+
+	// first, use the default logging and reporting
 	Mux = gin.Default()
+
+	// next, setup our middlewares
+	Mux.Use(Analytics)
+
+	// setup any api routes
 	Mux.GET("/api/v1", apiDomain)
+
+	// setup the static index file
 	Mux.StaticFile("/", "root/index.html")
+
+	// catch everything else with a static server
 	Mux.NoRoute(static.ServeRoot("/", "root"))
 }
 
