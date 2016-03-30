@@ -32,6 +32,8 @@ func main() {
 
 	InitEngine()
 
+	InitDatabase()
+
 	bind := "0.0.0.0:8080"
 	if os.Getenv("OPENSHIFT_GO_IP") != "" {
 		gin.SetMode(gin.ReleaseMode)
