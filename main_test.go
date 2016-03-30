@@ -29,3 +29,7 @@ func Test_Root(*testing.T) {
 		log.Fatal("Status code is ", res.Status, "expected 200")
 	}
 }
+
+func Test_GetBind(*testing.T) {
+	m.GetBind()
+}
