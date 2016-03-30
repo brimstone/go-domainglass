@@ -1,5 +1,24 @@
 package main
 
-func InitDatabase() {
-	// TODO setup database
+import "github.com/go-xorm/xorm"
+
+var orm *xorm.Engine
+
+// InitDatabase sets up the database and xorm
+func InitDatabase() error {
+	var err error
+
+	// connect to our database
+	orm, err = xorm.NewEngine("sqlite3", "/tmp/requests.db")
+
+	if err != nil {
+		return err
+	}
+
+	err = orm.Sync(new(ClientRequest))
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

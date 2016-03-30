@@ -8,9 +8,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Mux is our main gin engine
 var Mux *gin.Engine
 
-func InitEngine() {
+// InitEngine sets up gin
+func InitEngine() error {
 
 	// first, use the default logging and reporting
 	Mux = gin.Default()
@@ -26,13 +28,21 @@ func InitEngine() {
 
 	// catch everything else with a static server
 	Mux.NoRoute(static.ServeRoot("/", "root"))
+
+	return nil
 }
 
 func main() {
 
-	InitEngine()
+	err := InitEngine()
+	if err != nil {
+		panic(err)
+	}
 
-	InitDatabase()
+	err = InitDatabase()
+	if err != nil {
+		panic(err)
+	}
 
 	bind := "0.0.0.0:8080"
 	if os.Getenv("OPENSHIFT_GO_IP") != "" {
@@ -40,7 +50,7 @@ func main() {
 		bind = fmt.Sprintf("%s:%s", os.Getenv("OPENSHIFT_GO_IP"), os.Getenv("OPENSHIFT_GO_PORT"))
 	}
 	fmt.Printf("listening on %s...", bind)
-	err := Mux.Run(bind)
+	err = Mux.Run(bind)
 	if err != nil {
 		panic(err)
 	}
