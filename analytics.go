@@ -19,12 +19,14 @@ type ClientRequest struct {
 
 // Analytics TODO
 func Analytics(c *gin.Context) {
-	// Pass on to the next-in-chain
-
+	// Get the current time
 	then := time.Now()
+
+	// Let the rest of the request happen
 	c.Next()
 
-	cr := ClientRequest{
+	// Build our client request record
+	_ = ClientRequest{
 		Timestamp:    time.Now(),
 		UserAgent:    c.Request.UserAgent(),
 		IP:           c.Request.RemoteAddr,
@@ -33,4 +35,5 @@ func Analytics(c *gin.Context) {
 		HTTPCode:     c.Writer.Status(),
 		ResponseTime: time.Since(then),
 	}
+	// TODO log this to the database
 }
