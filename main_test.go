@@ -12,6 +12,7 @@ import (
 
 func Test_Root(*testing.T) {
 	m.InitEngine()
+	m.InitDatabase()
 	ts := httptest.NewServer(m.Mux)
 	defer ts.Close()
 
