@@ -35,7 +35,6 @@ func InitEngine() error {
 func GetBind() string {
 	bind := "0.0.0.0:8080"
 	if os.Getenv("OPENSHIFT_GO_IP") != "" {
-		gin.SetMode(gin.ReleaseMode)
 		bind = fmt.Sprintf("%s:%s", os.Getenv("OPENSHIFT_GO_IP"), os.Getenv("OPENSHIFT_GO_PORT"))
 	}
 	fmt.Printf("listening on %s...\n", bind)
