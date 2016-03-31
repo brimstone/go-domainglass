@@ -25,11 +25,15 @@ func Analytics(c *gin.Context) {
 	// Let the rest of the request happen
 	c.Next()
 
+	clientip := c.Request.Header.Get("X-Forwarded-For")
+	if clientip == "" {
+		clientip = c.Request.RemoteAddr
+	}
 	// Build our client request record
 	cr := ClientRequest{
 		Timestamp:    time.Now(),
 		UserAgent:    c.Request.UserAgent(),
-		IP:           c.Request.RemoteAddr,
+		IP:           clientip,
 		URL:          c.Request.RequestURI,
 		Referer:      c.Request.Referer(),
 		HTTPCode:     c.Writer.Status(),
