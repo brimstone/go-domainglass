@@ -1,7 +1,10 @@
 language: go
 
 go:
- - 1.6
+  - 1.6
+
+services:
+  - mysql
 
 before_install:
   - go get github.com/axw/gocov/gocov
@@ -17,6 +20,11 @@ before_script:
   - eval `ssh-agent -s`
   - ssh-add ~/.ssh/id_rsa
   - export PATH=$PATH:$GOPATH/bin
+  - export OPENSHIFT_MYSQL_DB_HOST=127.0.0.1
+  - export OPENSHIFT_MYSQL_DB_PORT=3306
+  - export OPENSHIFT_MYSQL_DB_USERNAME=root
+  - export OPENSHIFT_MYSQL_DB_NAME=domainglass
+  - export OPENSHIFT_MYSQL_DB_PASSWORD=""
 
 script:
   - make deploy coveralls
