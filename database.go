@@ -15,7 +15,7 @@ func InitDatabase() error {
 	var err error
 
 	// connect to our database
-	if os.Getenv("OPENSHIFT_MYSQL_DB_URL") != "" {
+	if os.Getenv("OPENSHIFT_MYSQL_DB_HOST") != "" {
 		mysql := os.Getenv("OPENSHIFT_MYSQL_DB_USERNAME")
 		mysql += ":" + os.Getenv("OPENSHIFT_MYSQL_DB_PASSWORD")
 		mysql += "@tcp(" + os.Getenv("OPENSHIFT_MYSQL_DB_HOST")
