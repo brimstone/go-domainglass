@@ -8,12 +8,12 @@ import (
 
 // ClientRequest TODO
 type ClientRequest struct {
-	Timestamp    time.Time
-	IP           string
-	URL          string
-	UserAgent    string
-	Referer      string
-	HTTPCode     int
+	Timestamp    time.Time `xorm:"'timestamp' pk notnull"`
+	IP           string    `xorm:"'ip' pk notnull"`
+	URL          string    `xorm:"'url' notnull"`
+	UserAgent    string    `xorm:"'user-agent'"`
+	Referer      string    `xorm:"'referer'"`
+	HTTPCode     int       `xorm:"'httpcode'"`
 	ResponseTime time.Duration
 }
 
