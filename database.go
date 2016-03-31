@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/go-xorm/xorm"
@@ -17,8 +16,11 @@ func InitDatabase() error {
 
 	// connect to our database
 	if os.Getenv("OPENSHIFT_MYSQL_DB_URL") != "" {
-		openshiftURL := os.Getenv("OPENSHIFT_MYSQL_DB_URL")
-		mysql := strings.TrimPrefix(openshiftURL, "mysql://")
+		mysql := os.Getenv("OPENSHIFT_MYSQL_DB_USERNAME")
+		mysql += ":" + os.Getenv("OPENSHIFT_MYSQL_DB_PASSWORD")
+		mysql += "@tcp(" + os.Getenv("OPENSHIFT_MYSQL_DB_HOST")
+		mysql += ":" + os.Getenv("OPENSHIFT_MYSQL_DB_PORT")
+		mysql += ")/" + os.Getenv("OPENSHIFT_MYSQL_DB_NAME")
 		orm, err = xorm.NewEngine("mysql", mysql)
 	} else {
 		orm, err = xorm.NewEngine("sqlite3", ":memory:")
