@@ -112,7 +112,7 @@ func SendEmail(recipient string,
 
 	log.Println("Sending email to", recipient)
 	return smtp.SendMail(emailUser.Hostname+":"+emailUser.Port,
-		auth,
+		emailUser.Auth,
 		emailUser.Username,
 		[]string{recipient},
 		[]byte("To: "+recipient+"\r\n"+
