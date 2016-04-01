@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/gin-gonic/contrib/static"
@@ -32,10 +33,14 @@ func InitEngine() error {
 	return nil
 }
 
+// GetBind Determine the interface on which to bind the webserver
 func GetBind() string {
 	bind := "0.0.0.0:8080"
 	if os.Getenv("OPENSHIFT_GO_IP") != "" {
-		bind = fmt.Sprintf("%s:%s", os.Getenv("OPENSHIFT_GO_IP"), os.Getenv("OPENSHIFT_GO_PORT"))
+		bind = fmt.Sprintf("%s:%s",
+			os.Getenv("OPENSHIFT_GO_IP"),
+			os.Getenv("OPENSHIFT_GO_PORT"),
+		)
 	}
 	fmt.Printf("listening on %s...\n", bind)
 	return bind
@@ -52,6 +57,18 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	err = InitEmail()
+	if err != nil {
+		log.Println(err)
+	}
+
+	/* Disabling for now
+	err = EmailVerification(Domain{"the.narro.ws", "kvansanten@gmail.com"})
+	if err != nil {
+		log.Println("[ERROR] EmailVerification", err)
+	}
+	*/
 
 	err = Mux.Run(GetBind())
 	if err != nil {
