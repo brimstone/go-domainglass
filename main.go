@@ -63,12 +63,10 @@ func main() {
 		log.Println(err)
 	}
 
-	/* Disabling for now
-	err = EmailVerification(Domain{"the.narro.ws", "kvansanten@gmail.com"})
+	err = InitJobs()
 	if err != nil {
-		log.Println("[ERROR] EmailVerification", err)
+		log.Println(err)
 	}
-	*/
 
 	err = Mux.Run(GetBind())
 	if err != nil {

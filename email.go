@@ -66,6 +66,31 @@ func InitEmail() error {
 	return nil
 }
 
+// EmailAnalytics sends a verification email
+func EmailAnalytics(recipient Domain) error {
+
+	TemplateText, err := template.
+		New("emailanalytics.txt").
+		ParseFiles("tmpls/emailanalytics.txt")
+	if err != nil {
+		return err
+	}
+
+	TemplateHTML, err := template.
+		New("emailanalytics.html").
+		ParseFiles("tmpls/emailanalytics.html")
+	if err != nil {
+		return err
+	}
+
+	return SendEmail(recipient.OwnerEmail,
+		"",
+		TemplateText,
+		TemplateHTML,
+	)
+
+}
+
 // EmailVerification sends a verification email
 func EmailVerification(recipient Domain) error {
 
