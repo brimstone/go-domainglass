@@ -15,6 +15,7 @@ type EmailCreds struct {
 	Password string
 	Hostname string
 	Port     string
+	Auth     smtp.Auth
 }
 
 // Domain holds information about the domain in question
@@ -55,6 +56,12 @@ func InitEmail() error {
 	} else {
 		emailUser.Port = "587"
 	}
+
+	emailUser.Auth = smtp.PlainAuth("",
+		emailUser.Username,
+		emailUser.Password,
+		emailUser.Hostname,
+	)
 
 	return nil
 }
@@ -103,12 +110,6 @@ func SendEmail(recipient string,
 		return err
 	}
 
-	auth := smtp.PlainAuth("",
-		emailUser.Username,
-		emailUser.Password,
-		emailUser.Hostname,
-	)
-
 	log.Println("Sending email to", recipient)
 	return smtp.SendMail(emailUser.Hostname+":"+emailUser.Port,
 		auth,
@@ -121,8 +122,12 @@ func SendEmail(recipient string,
 			"	boundary=\"----=_Part_-1234792361_708108731.1459450691577\"\r\n"+
 			"\r\n"+
 			"------=_Part_-1234792361_708108731.1459450691577\r\n"+
+			"Content-Type: text/plain\r\n"+
+			"\r\n"+
 			msgText.String()+"\r\n"+
 			"------=_Part_-1234792361_708108731.1459450691577\r\n"+
+			"Content-Type:text/html\r\n"+
+			"\r\n"+
 			msgHTML.String()+"\r\n",
 		))
 }
