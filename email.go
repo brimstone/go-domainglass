@@ -66,33 +66,11 @@ func InitEmail() error {
 	return nil
 }
 
-// EmailAnalytics sends a verification email
-func EmailAnalytics(recipient Domain) error {
-
-	TemplateText, err := template.
-		New("emailanalytics.txt").
-		ParseFiles("tmpls/emailanalytics.txt")
-	if err != nil {
-		return err
-	}
-
-	TemplateHTML, err := template.
-		New("emailanalytics.html").
-		ParseFiles("tmpls/emailanalytics.html")
-	if err != nil {
-		return err
-	}
-
-	return SendEmail(recipient.OwnerEmail,
-		"",
-		TemplateText,
-		TemplateHTML,
-	)
-
-}
-
 // EmailVerification sends a verification email
 func EmailVerification(recipient Domain) error {
+	var err error
+	var msgText bytes.Buffer
+	var msgHTML bytes.Buffer
 
 	TemplateText, err := template.
 		New("verificationemail.txt").
@@ -108,24 +86,6 @@ func EmailVerification(recipient Domain) error {
 		return err
 	}
 
-	return SendEmail(recipient.OwnerEmail,
-		"Verify your domain",
-		TemplateText,
-		TemplateHTML,
-	)
-
-}
-
-// SendEmail sends an email!
-func SendEmail(recipient string,
-	subject string,
-	TemplateText *template.Template,
-	TemplateHTML *template.Template,
-) error {
-	var err error
-	var msgText bytes.Buffer
-	var msgHTML bytes.Buffer
-
 	err = TemplateText.Execute(&msgText, recipient)
 	if err != nil {
 		return err
@@ -134,6 +94,21 @@ func SendEmail(recipient string,
 	if err != nil {
 		return err
 	}
+
+	return SendEmail(recipient.OwnerEmail,
+		"Verify your domain",
+		msgText,
+		msgHTML,
+	)
+
+}
+
+// SendEmail sends an email!
+func SendEmail(recipient string,
+	subject string,
+	msgText bytes.Buffer,
+	msgHTML bytes.Buffer,
+) error {
 
 	log.Println("Sending email to", recipient)
 	return smtp.SendMail(emailUser.Hostname+":"+emailUser.Port,

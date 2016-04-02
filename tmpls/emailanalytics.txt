@@ -1,0 +1,13 @@
+Analytics email!
+
+Weekly Non 200s:
+{{range .WeeklyNot200}} {{.Count}} {{.URL}} {{.HTTPCode}}
+{{end}}
+
+Weekly IPs:
+{{range .WeeklyIP}}{{.Count}} {{.IP}}
+{{end}}
+
+Weekly Referers:
+{{range .WeeklyReferer}}{{.Count}} {{.Referer}}
+{{end}}

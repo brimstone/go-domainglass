@@ -1,6 +1,7 @@
 package main
 
 import (
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -29,6 +30,9 @@ func Analytics(c *gin.Context) {
 	if clientip == "" {
 		clientip = c.Request.RemoteAddr
 	}
+	clientipparts := strings.Split(clientip, ":")
+	clientip = clientipparts[0]
+
 	// Build our client request record
 	cr := ClientRequest{
 		Timestamp:    time.Now(),

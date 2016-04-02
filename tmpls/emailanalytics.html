@@ -1,0 +1,51 @@
+Analytics html:
+<br/>
+<br/>
+<br/>
+Weekly Non 200s:
+<table>
+<tr>
+	<th>Count</th>
+	<th>URL</th>
+	<th>HTTPCode</th>
+</tr>
+{{range .WeeklyNot200}}
+<tr>
+	<td>{{.Count}}</td>
+	<td>{{.URL}}</td>
+	<td>{{.HTTPCode}}</td>
+</tr>
+{{end}}
+</table>
+<br/>
+<br/>
+<br/>
+Weekly IPs:
+<table>
+<tr>
+	<th>Count</th>
+	<th>IP</th>
+</tr>
+{{range .WeeklyIP}}
+<tr>
+	<td>{{.Count}}</td>
+	<td>{{.IP}}</td>
+</tr>
+{{end}}
+</table>
+<br/>
+<br/>
+<br/>
+Weekly Referers:
+<table>
+<tr>
+	<th>Count</th>
+	<th>Referers</th>
+</tr>
+{{range .WeeklyReferer}}
+<tr>
+	<td>{{.Count}}</td>
+	<td>{{.Referer}}</td>
+</tr>
+{{end}}
+</table>

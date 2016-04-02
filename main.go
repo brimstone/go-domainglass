@@ -68,6 +68,9 @@ func main() {
 		log.Println(err)
 	}
 
+	foo := new(AnalyticsEmails)
+	foo.Run()
+
 	err = Mux.Run(GetBind())
 	if err != nil {
 		panic(err)
