@@ -2,6 +2,7 @@ domainglass
 ===========
 [![Build Status](https://travis-ci.org/brimstone/go-domainglass.svg?branch=master)](https://travis-ci.org/brimstone/go-domainglass)
 [![Coverage Status](https://coveralls.io/repos/github/brimstone/go-domainglass/badge.svg?branch=master)](https://coveralls.io/github/brimstone/go-domainglass?branch=master)
+[![Stories in Ready](https://badge.waffle.io/brimstone/go-domainglass.png?label=ready&title=Ready)](https://waffle.io/brimstone/go-domainglass)
 
 
 Use case:
