@@ -110,6 +110,9 @@ func SendEmail(recipient string,
 	msgHTML bytes.Buffer,
 ) error {
 
+	if emailUser == nil {
+		return fmt.Errorf("Email is disabled")
+	}
 	log.Println("Sending email to", recipient)
 	return smtp.SendMail(emailUser.Hostname+":"+emailUser.Port,
 		emailUser.Auth,
