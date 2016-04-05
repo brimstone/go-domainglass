@@ -23,11 +23,28 @@ func InitEngine() error {
 	// next, setup our middlewares
 	Mux.Use(Analytics)
 
+	// setup beta redirect
+	Mux.Use(func(c *gin.Context) {
+		if c.Request.RequestURI == "/beta" {
+			c.SetCookie("beta", "true", 86700, "/", "", false, true)
+			c.Redirect(301, "/")
+		}
+	})
+
 	// setup any api routes
 	Mux.GET("/api/v1", apiDomain)
 
 	// setup the static index file
-	Mux.StaticFile("/", "root/index.html")
+	// beta: Mux.StaticFile("/", "root/index.html")
+	Mux.GET("/", func(c *gin.Context) {
+		beta, _ := c.Cookie("beta")
+		fmt.Println("Beta:", beta)
+		if beta == "true" {
+			c.File("root/betaok.html")
+		} else {
+			c.File("root/index.html")
+		}
+	})
 
 	Mux.POST("/", func(c *gin.Context) {
 		domain := c.PostForm("domain")
