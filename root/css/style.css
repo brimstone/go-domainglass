@@ -31,3 +31,12 @@ body {
 	background-color: lightblue;
 	text-align: center;
 }
+
+.comingsoon {
+	background: darkgreen;
+	position: absolute;
+	left: -20;
+	-moz-transform:rotate(-32deg);
+	-webkit-transform:rotate(-32deg);
+	padding: 5px
+}
