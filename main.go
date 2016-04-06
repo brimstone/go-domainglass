@@ -37,9 +37,7 @@ func InitEngine() error {
 	// setup the static index file
 	// beta: Mux.StaticFile("/", "root/index.html")
 	Mux.GET("/", func(c *gin.Context) {
-		beta, _ := c.Cookie("beta")
-		fmt.Println("Beta:", beta)
-		if beta == "true" {
+		if beta, _ := c.Cookie("beta"); beta == "true" {
 			c.File("root/betaok.html")
 		} else {
 			c.File("root/index.html")
@@ -62,6 +60,10 @@ func InitEngine() error {
 	Mux.NoRoute(func(c *gin.Context) {
 		matched, _ := regexp.MatchString("^/[a-z0-9._]*\\.[a-z]{2,}$", c.Request.RequestURI)
 		if matched {
+			if beta, _ := c.Cookie("beta"); beta != "true" {
+				c.Redirect(301, "/")
+				return
+			}
 			c.HTML(http.StatusOK, "viewdomain.html", gin.H{
 				"domain": c.Request.RequestURI,
 			})
