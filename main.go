@@ -27,7 +27,7 @@ func InitEngine() error {
 	Mux.Use(func(c *gin.Context) {
 		if c.Request.RequestURI == "/beta" {
 			c.SetCookie("beta", "true", 86700, "/", "", false, true)
-			c.Redirect(301, "/")
+			c.Redirect(302, "/")
 		}
 	})
 
@@ -49,9 +49,9 @@ func InitEngine() error {
 
 		matched, _ := regexp.MatchString("^[a-z0-9._]*\\.[a-z]{2,}$", domain)
 		if matched {
-			c.Redirect(301, "/"+domain)
+			c.Redirect(302, "/"+domain)
 		} else {
-			c.Redirect(301, "/")
+			c.Redirect(302, "/")
 		}
 	})
 
