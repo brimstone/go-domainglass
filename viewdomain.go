@@ -3,10 +3,26 @@ package main
 import (
 	"net/http"
 	"regexp"
+	"time"
 
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
+
+// Domain holds information about a domain
+type Domain struct {
+	ID               int64  `xorm:"pk not null autoincr"`
+	Name             string `xorm:"unique not null"`
+	VerificationCode string `xorm:"not null"`
+	OwnerEmail       string `xorm:"not null"`
+	Payment          Payment
+}
+
+// Payment holds payment information
+type Payment struct {
+	Timestamp time.Time `xorm:"pk not null 'timestamp'"`
+	Plan      string    `xorm:"not null"`
+}
 
 func viewdomain(c *gin.Context) {
 	// if we're not in the beta, kick them to the front page
