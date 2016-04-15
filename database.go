@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -33,7 +34,15 @@ func InitDatabase() error {
 	// Migrate our database if needed
 	err = orm.Sync(new(ClientRequest))
 	if err != nil {
-		return err
+		return fmt.Errorf("ClientRequest: %s", err)
+	}
+	err = orm.Sync(new(Domain))
+	if err != nil {
+		return fmt.Errorf("Domain: %s", err)
+	}
+	err = orm.Sync(new(Payment))
+	if err != nil {
+		return fmt.Errorf("Payment: %s", err)
 	}
 
 	return nil
