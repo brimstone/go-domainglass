@@ -7,6 +7,7 @@ import (
 	"log"
 	"strconv"
 
+	beegoorm "github.com/astaxie/beego/orm"
 	"github.com/bamzi/jobrunner"
 )
 
@@ -54,43 +55,44 @@ func (e AnalyticsEmails) Run() {
 	fmt.Println("Nightly Analytic email")
 
 	// Non 200s
-	results, err := orm.Query(`select count(url) as count, url, httpcode
+	var results []beegoorm.Params
+	_, err = orm.Raw(`select count(url) as count, url, httpcode
 from client_request
 where httpcode != 200
 group by url
-order by count desc;`)
-	for _, r := range results {
-		count, _ := strconv.Atoi(string(r["count"]))
-		httpcode, _ := strconv.Atoi(string(r["httpcode"]))
+order by count desc;`).Values(&results)
+	for i, _ := range results {
+		count, _ := strconv.Atoi(results[i]["count"].(string))
+		httpcode, _ := strconv.Atoi(results[i]["httpcode"].(string))
 		stat := &AnalyticURL{Count: count,
-			URL:      string(r["url"]),
+			URL:      results[i]["url"].(string),
 			HTTPCode: httpcode,
 		}
 		e.WeeklyNot200 = append(e.WeeklyNot200, *stat)
 	}
 
 	// IPs
-	results, err = orm.Query(`select count(ip) as count, ip
+	_, err = orm.Raw(`select count(ip) as count, ip
 from client_request
 group by ip
-order by count desc`)
-	for _, r := range results {
-		count, _ := strconv.Atoi(string(r["count"]))
+order by count desc`).Values(&results)
+	for i, _ := range results {
+		count, _ := strconv.Atoi(results[i]["count"].(string))
 		stat := &AnalyticIP{Count: count,
-			IP: string(r["ip"]),
+			IP: results[i]["ip"].(string),
 		}
 		e.WeeklyIP = append(e.WeeklyIP, *stat)
 	}
 
 	// referers
-	results, err = orm.Query(`select count(referer) as count, referer
+	_, err = orm.Raw(`select count(referer) as count, referer
 from client_request
 group by referer
-order by count desc`)
-	for _, r := range results {
-		count, _ := strconv.Atoi(string(r["count"]))
+order by count desc`).Values(&results)
+	for i, _ := range results {
+		count, _ := strconv.Atoi(results[i]["count"].(string))
 		stat := &AnalyticReferer{Count: count,
-			Referer: string(r["referer"]),
+			Referer: results[i]["referer"].(string),
 		}
 		e.WeeklyReferer = append(e.WeeklyReferer, *stat)
 	}

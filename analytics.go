@@ -9,14 +9,23 @@ import (
 
 // ClientRequest TODO
 type ClientRequest struct {
-	Timestamp    time.Time     `xorm:"pk not null 'timestamp'"`
-	IP           string        `xorm:"pk not null 'ip'"`
-	URL          string        `xorm:"not null 'url'"`
-	UserAgent    string        `xorm:"'user-agent'"`
-	Referer      string        `xorm:"'referer'"`
-	HTTPCode     int           `xorm:"'httpcode'"`
-	ResponseTime time.Duration `xorm:"not null 'response-time'"`
+	Timestamp    time.Time     `orm:"pk;column(timestamp);type(datetime)"`
+	IP           string        `orm:"pk;column(ip)"`
+	URL          string        `orm:"column(url)"`
+	UserAgent    string        `orm:"column(user-agent)"`
+	Referer      string        `orm:`
+	HTTPCode     int           `orm:"column(httpcode)"`
+	ResponseTime time.Duration `orm:"column(reponse-time)"`
 }
+
+/*
+// TableUnique returns columns that should be unique
+func (c *ClientRequest) TableUnique() [][]string {
+	return [][]string{
+		[]string{"ip"},
+	}
+}
+*/
 
 // Analytics TODO
 func Analytics(c *gin.Context) {
