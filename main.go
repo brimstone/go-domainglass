@@ -3,11 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"regexp"
 
-	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -57,20 +55,7 @@ func InitEngine() error {
 
 	Mux.LoadHTMLGlob("tmpls/view*html")
 	// catch everything else with a static server
-	Mux.NoRoute(func(c *gin.Context) {
-		matched, _ := regexp.MatchString("^/[a-z0-9._]*\\.[a-z]{2,}$", c.Request.RequestURI)
-		if matched {
-			if beta, _ := c.Cookie("beta"); beta != "true" {
-				c.Redirect(301, "/")
-				return
-			}
-			c.HTML(http.StatusOK, "viewdomain.html", gin.H{
-				"domain": c.Request.RequestURI,
-			})
-			return
-		}
-		static.ServeRoot("/", "root")(c)
-	})
+	Mux.NoRoute(viewdomain)
 
 	return nil
 }
