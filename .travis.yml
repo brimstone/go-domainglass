@@ -27,4 +27,5 @@ before_script:
   - export OPENSHIFT_MYSQL_DB_PASSWORD=""
 
 script:
-  - make deploy coveralls
+  - make build coveralls
+  - [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && make deploy

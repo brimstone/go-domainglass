@@ -1,4 +1,11 @@
-deploy: vet lint fmt test
+.PHONY: vet lint fmt test deploy
+
+build: go-domainglass vet lint fmt test
+
+go-domainglass:
+	go build
+
+deploy:
 	@git remote add deploy "${git_origin}"
 	git push -u deploy -f master
 
