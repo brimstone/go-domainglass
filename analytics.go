@@ -9,11 +9,11 @@ import (
 
 // ClientRequest TODO
 type ClientRequest struct {
-	Timestamp    time.Time     `orm:"pk;column(timestamp);type(datetime)"`
-	IP           string        `orm:"pk;column(ip)"`
-	URL          string        `orm:"column(url)"`
-	UserAgent    string        `orm:"column(user-agent)"`
-	Referer      string        `orm:`
+	Timestamp    time.Time `orm:"pk;column(timestamp);type(datetime)"`
+	IP           string    `orm:"pk;column(ip)"`
+	URL          string    `orm:"column(url)"`
+	UserAgent    string    `orm:"column(user-agent)"`
+	Referer      string
 	HTTPCode     int           `orm:"column(httpcode)"`
 	ResponseTime time.Duration `orm:"column(reponse-time)"`
 }

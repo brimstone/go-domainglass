@@ -11,18 +11,18 @@ import (
 
 // Domain holds information about a domain
 type Domain struct {
-	ID               int64    `orm:"pk auto column(id)"`
-	Name             string   `orm:""`
-	VerificationCode string   `orm:""`
-	OwnerEmail       string   `orm:""`
+	ID               int64 `orm:"pk auto column(id)"`
+	Name             string
+	VerificationCode string
+	OwnerEmail       string
 	Payment          *Payment `orm:"rel(fk)"`
 }
 
 // Payment holds payment information
 type Payment struct {
-	ID        int64     `orm:"auto column(id)"`
-	Timestamp time.Time `orm:`
-	Plan      string    `orm:`
+	ID        int64 `orm:"auto column(id)"`
+	Timestamp time.Time
+	Plan      string
 }
 
 func viewdomain(c *gin.Context) {
