@@ -28,4 +28,4 @@ before_script:
 
 script:
   - make build coveralls
-  - [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && make deploy
+  - '[ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ] && make deploy'
