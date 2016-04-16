@@ -61,7 +61,7 @@ from client_request
 where httpcode != 200
 group by url
 order by count desc;`).Values(&results)
-	for i, _ := range results {
+	for i := range results {
 		count, _ := strconv.Atoi(results[i]["count"].(string))
 		httpcode, _ := strconv.Atoi(results[i]["httpcode"].(string))
 		stat := &AnalyticURL{Count: count,
@@ -76,7 +76,7 @@ order by count desc;`).Values(&results)
 from client_request
 group by ip
 order by count desc`).Values(&results)
-	for i, _ := range results {
+	for i := range results {
 		count, _ := strconv.Atoi(results[i]["count"].(string))
 		stat := &AnalyticIP{Count: count,
 			IP: results[i]["ip"].(string),
@@ -89,7 +89,7 @@ order by count desc`).Values(&results)
 from client_request
 group by referer
 order by count desc`).Values(&results)
-	for i, _ := range results {
+	for i := range results {
 		count, _ := strconv.Atoi(results[i]["count"].(string))
 		stat := &AnalyticReferer{Count: count,
 			Referer: results[i]["referer"].(string),
