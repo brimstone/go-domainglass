@@ -18,7 +18,7 @@ func apiDomain(c *gin.Context) {
 
 // Domain holds information about a domain
 type Domain struct {
-	ID               int64 `orm:"pk auto column(id)"`
+	ID               int64 `orm:"pk;auto;column(id)"`
 	Name             string
 	VerificationCode string
 	OwnerEmail       string
@@ -27,7 +27,7 @@ type Domain struct {
 
 // Payment holds payment information
 type Payment struct {
-	ID        int64 `orm:"auto column(id)"`
+	ID        int64 `orm:"pk;auto;column(id)"`
 	Timestamp time.Time
 	Plan      string
 }
