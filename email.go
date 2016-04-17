@@ -18,12 +18,6 @@ type EmailCreds struct {
 	Auth     smtp.Auth
 }
 
-// Domain holds information about the domain in question
-type Domain struct {
-	Domainname string
-	OwnerEmail string
-}
-
 var emailUser *EmailCreds
 
 // InitEmail Setup Email, if available

@@ -9,13 +9,14 @@ import (
 
 // ClientRequest TODO
 type ClientRequest struct {
-	Timestamp    time.Time     `xorm:"pk not null 'timestamp'"`
-	IP           string        `xorm:"pk not null 'ip'"`
-	URL          string        `xorm:"not null 'url'"`
-	UserAgent    string        `xorm:"'user-agent'"`
-	Referer      string        `xorm:"'referer'"`
-	HTTPCode     int           `xorm:"'httpcode'"`
-	ResponseTime time.Duration `xorm:"not null 'response-time'"`
+	ID           int64     `orm:"pk;auto;column(id)"`
+	Timestamp    time.Time `orm:"auto_now_add;column(timestamp);type(datetime)"`
+	IP           string    `orm:"column(ip)"`
+	URL          string    `orm:"column(url)"`
+	UserAgent    string
+	Referer      string
+	HTTPCode     int `orm:"column(httpcode)"`
+	ResponseTime time.Duration
 }
 
 // Analytics TODO
@@ -34,15 +35,13 @@ func Analytics(c *gin.Context) {
 	clientip = clientipparts[0]
 
 	// Build our client request record
-	cr := ClientRequest{
-		Timestamp:    time.Now(),
-		UserAgent:    c.Request.UserAgent(),
-		IP:           clientip,
-		URL:          c.Request.RequestURI,
-		Referer:      c.Request.Referer(),
-		HTTPCode:     c.Writer.Status(),
-		ResponseTime: time.Since(then),
-	}
+	cr := new(ClientRequest)
+	cr.UserAgent = c.Request.UserAgent()
+	cr.IP = clientip
+	cr.URL = c.Request.RequestURI
+	cr.Referer = c.Request.Referer()
+	cr.HTTPCode = c.Writer.Status()
+	cr.ResponseTime = time.Since(then)
 	// log this to the database
 	orm.Insert(cr)
 }

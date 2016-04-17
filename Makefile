@@ -1,20 +1,33 @@
-deploy: vet lint fmt test
+.PHONY: vet lint fmt test deploy
+
+go-domainglass: pre-build *.go
+	@echo "== Building"
+	@go build
+
+pre-build: fmt vet lint test
+
+deploy:
 	@git remote add deploy "${git_origin}"
 	git push -u deploy -f master
 
 vet:
-	go tool vet $(shell pwd)
+	@echo "== Vetting"
+	@go tool vet $(shell pwd)
 
 lint:
-	golint
+	@echo "== Linting"
+	@golint
 
 fmt:
-	go fmt
-	git diff --exit-code >/dev/null || echo "Go fmt found corrections"
-	git diff --exit-code >/dev/null
+	@echo "== Fmting"
+	@if [ -n "$(shell gofmt -d -s .)" ]; then \
+		gofmt -d -s .; \
+		exit 1; \
+	fi
 
 test:
-	go test -covermode=count
+	@ echo "== Testing"
+	@go test -covermode=count
 
 coveralls:
 	@goveralls -v -repotoken ${coveralls_token}

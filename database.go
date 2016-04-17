@@ -3,16 +3,22 @@ package main
 import (
 	"os"
 
+	beegoorm "github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/go-xorm/xorm"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var orm *xorm.Engine
+var orm beegoorm.Ormer
 
-// InitDatabase sets up the database and xorm
+// InitDatabase sets up the database and beegoorm
 func InitDatabase() error {
 	var err error
+	beegoorm.Debug = true
+
+	// Migrate our database if needed
+	beegoorm.RegisterModel(new(ClientRequest))
+	beegoorm.RegisterModel(new(Domain))
+	beegoorm.RegisterModel(new(Payment))
 
 	// connect to our database
 	if os.Getenv("OPENSHIFT_MYSQL_DB_HOST") != "" {
@@ -21,20 +27,18 @@ func InitDatabase() error {
 		mysql += "@tcp(" + os.Getenv("OPENSHIFT_MYSQL_DB_HOST")
 		mysql += ":" + os.Getenv("OPENSHIFT_MYSQL_DB_PORT")
 		mysql += ")/" + os.Getenv("OPENSHIFT_MYSQL_DB_NAME")
-		orm, err = xorm.NewEngine("mysql", mysql)
+		err = beegoorm.RegisterDataBase("default", "mysql", mysql, 30)
 	} else {
-		orm, err = xorm.NewEngine("sqlite3", ":memory:")
+		err = beegoorm.RegisterDataBase("default", "sqlite3", ":memory:", 30)
 	}
+
+	err = beegoorm.RunSyncdb("default", false, true)
 
 	if err != nil {
 		return err
 	}
 
-	// Migrate our database if needed
-	err = orm.Sync(new(ClientRequest))
-	if err != nil {
-		return err
-	}
+	orm = beegoorm.NewOrm()
 
 	return nil
 }
