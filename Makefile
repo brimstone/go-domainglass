@@ -1,10 +1,10 @@
 .PHONY: vet lint fmt test deploy
 
-build: fmt vet lint test go-domainglass
-
-go-domainglass: *.go
+go-domainglass: pre-build *.go
 	@echo "== Building"
 	@go build
+
+pre-build: fmt vet lint test go-domainglass
 
 deploy:
 	@git remote add deploy "${git_origin}"

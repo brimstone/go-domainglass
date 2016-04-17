@@ -28,5 +28,5 @@ before_script:
   - mysql -uroot -e 'create database domainglass'
 
 script:
-  - make build coveralls
+  - make pre-build coveralls
   - '[ "$TRAVIS_BRANCH" = "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ] && make deploy'
