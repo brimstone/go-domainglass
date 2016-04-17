@@ -26,17 +26,17 @@ type Payment struct {
 }
 
 func viewdomain(c *gin.Context) {
-	// if we're not in the beta, kick them to the front page
-	if beta, _ := c.Cookie("beta"); beta != "true" {
-		c.Redirect(302, "/")
-		return
-	}
-
 	// if we don't have a suburl that looks like a domain
 	matched, _ := regexp.MatchString("^/[a-z0-9._]*\\.[a-z]{2,}$", c.Request.RequestURI)
 	if !matched {
 		// try to parse it as a static file
 		static.ServeRoot("/", "root")(c)
+		return
+	}
+
+	// if we're not in the beta, kick them to the front page
+	if beta, _ := c.Cookie("beta"); beta != "true" {
+		c.Redirect(302, "/")
 		return
 	}
 
