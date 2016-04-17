@@ -4,7 +4,7 @@ go-domainglass: pre-build *.go
 	@echo "== Building"
 	@go build
 
-pre-build: fmt vet lint test go-domainglass
+pre-build: fmt vet lint test
 
 deploy:
 	@git remote add deploy "${git_origin}"
