@@ -43,15 +43,14 @@ func Analytics(c *gin.Context) {
 	clientip = clientipparts[0]
 
 	// Build our client request record
-	cr := ClientRequest{
-		Timestamp:    time.Now(),
-		UserAgent:    c.Request.UserAgent(),
-		IP:           clientip,
-		URL:          c.Request.RequestURI,
-		Referer:      c.Request.Referer(),
-		HTTPCode:     c.Writer.Status(),
-		ResponseTime: time.Since(then),
-	}
+	cr := new(ClientRequest)
+	cr.Timestamp = time.Now()
+	cr.UserAgent = c.Request.UserAgent()
+	cr.IP = clientip
+	cr.URL = c.Request.RequestURI
+	cr.Referer = c.Request.Referer()
+	cr.HTTPCode = c.Writer.Status()
+	cr.ResponseTime = time.Since(then)
 	// log this to the database
 	orm.Insert(cr)
 }
