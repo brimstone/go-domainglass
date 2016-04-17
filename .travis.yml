@@ -25,6 +25,7 @@ before_script:
   - export OPENSHIFT_MYSQL_DB_USERNAME=root
   - export OPENSHIFT_MYSQL_DB_NAME=domainglass
   - export OPENSHIFT_MYSQL_DB_PASSWORD=""
+  - mysql -uroot -e 'create database domainglass'
 
 script:
   - make build coveralls
