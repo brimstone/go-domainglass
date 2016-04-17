@@ -7,13 +7,11 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	m "github.com/brimstone/go-domainglass"
+	dg "github.com/brimstone/go-domainglass"
 )
 
 func Test_Domain(*testing.T) {
-	m.InitEngine()
-	m.InitDatabase()
-	ts := httptest.NewServer(m.Mux)
+	ts := httptest.NewServer(dg.Mux)
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL + "/api/v1")

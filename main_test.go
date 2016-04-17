@@ -5,15 +5,20 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 
-	m "github.com/brimstone/go-domainglass"
+	dg "github.com/brimstone/go-domainglass"
 )
 
+func TestMain(m *testing.M) {
+	dg.InitEngine()
+	dg.InitDatabase()
+	os.Exit(m.Run())
+}
+
 func Test_Root(*testing.T) {
-	m.InitEngine()
-	m.InitDatabase()
-	ts := httptest.NewServer(m.Mux)
+	ts := httptest.NewServer(dg.Mux)
 	defer ts.Close()
 
 	res, err := http.Get(ts.URL)
@@ -31,5 +36,5 @@ func Test_Root(*testing.T) {
 }
 
 func Test_GetBind(*testing.T) {
-	m.GetBind()
+	dg.GetBind()
 }
