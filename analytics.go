@@ -9,20 +9,14 @@ import (
 
 // ClientRequest TODO
 type ClientRequest struct {
-	Timestamp    time.Time `orm:"pk;column(timestamp);type(datetime)"`
+	ID           int64     `orm:"pk;auto;column(id)"`
+	Timestamp    time.Time `orm:"auto_now_add;column(timestamp);type(datetime)"`
 	IP           string    `orm:"column(ip)"`
 	URL          string    `orm:"column(url)"`
-	UserAgent    string    `orm:"column(user-agent)"`
+	UserAgent    string
 	Referer      string
-	HTTPCode     int           `orm:"column(httpcode)"`
-	ResponseTime time.Duration `orm:"column(reponse-time)"`
-}
-
-// TableUnique returns columns that should be unique
-func (c *ClientRequest) TableUnique() [][]string {
-	return [][]string{
-		{"timestamp", "ip"},
-	}
+	HTTPCode     int `orm:"column(httpcode)"`
+	ResponseTime time.Duration
 }
 
 // Analytics TODO
@@ -42,7 +36,6 @@ func Analytics(c *gin.Context) {
 
 	// Build our client request record
 	cr := new(ClientRequest)
-	cr.Timestamp = time.Now()
 	cr.UserAgent = c.Request.UserAgent()
 	cr.IP = clientip
 	cr.URL = c.Request.RequestURI
