@@ -7,10 +7,9 @@ services:
   - mysql
 
 before_install:
-  - go get github.com/axw/gocov/gocov
-  - go get github.com/mattn/goveralls
-  - go get github.com/golang/lint/golint
-  - go get -v -d
+  - git clone https://github.com/brimstone/projectbuilder.git projectbuilder
+  - export PROJECTBUILDER="$PWD/projectbuilder"
+  - make setup
 
 
 before_script:
@@ -28,5 +27,4 @@ before_script:
   - mysql -uroot -e 'create database domainglass'
 
 script:
-  - make pre-build coveralls
-  - '[ "$TRAVIS_BRANCH" != "master" ] || [ "$TRAVIS_PULL_REQUEST" != "false" ] || make deploy'
+  - make && make publish
