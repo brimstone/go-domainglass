@@ -1,2 +1,4 @@
 *.swp
 go-domainglass
+.travis
+.travis.tar
