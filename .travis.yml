@@ -9,9 +9,6 @@ services:
 before_script:
   - git clone https://github.com/brimstone/projectbuilder.git projectbuilder
   - export PROJECTBUILDER="$PWD/projectbuilder"
-  - printf "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - eval `ssh-agent -s`
-  - ssh-add ~/.travis/id_rsa
   - export PATH=$PATH:$GOPATH/bin
   - export OPENSHIFT_MYSQL_DB_HOST=127.0.0.1
   - export OPENSHIFT_MYSQL_DB_PORT=3306
