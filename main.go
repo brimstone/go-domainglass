@@ -30,7 +30,7 @@ func InitEngine() error {
 	})
 
 	// setup any api routes
-	Mux.GET("/api/v1", apiDomain)
+	Mux.GET("/api/v1/:domain", apiDomain)
 
 	// setup the static index file
 	// beta: Mux.StaticFile("/", "root/index.html")
