@@ -10,11 +10,71 @@ import (
 	dg "github.com/brimstone/go-domainglass"
 )
 
+func Test_NotBeta(*testing.T) {
+	ts := httptest.NewServer(dg.Mux)
+	defer ts.Close()
+
+	res, err := http.Get(ts.URL + "/domain.glass")
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, err = ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.StatusCode != 200 {
+		log.Fatal("Status code is ", res.Status, "expected 200")
+	}
+}
+
+func Test_Beta(*testing.T) {
+	var err error
+	ts := httptest.NewServer(dg.Mux)
+	defer ts.Close()
+
+	// setup beta
+	res, err := http.Get(ts.URL + "/beta")
+	if err != nil {
+		log.Fatal(err)
+	}
+	_, err = ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.StatusCode != 200 {
+		log.Fatal("Status code is ", res.Status, "expected 200")
+	}
+}
+
 func Test_Domain(*testing.T) {
 	ts := httptest.NewServer(dg.Mux)
 	defer ts.Close()
 
-	res, err := http.Get(ts.URL + "/api/v1")
+	req, err := http.NewRequest("GET", ts.URL+"/domain.glass", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	req.Header.Set("Cookie", "beta=true")
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	res.Body.Close()
+	if res.StatusCode != 200 {
+		log.Fatal("Status code is ", res.Status, "expected 200")
+	}
+}
+
+func Test_API(*testing.T) {
+	var err error
+	ts := httptest.NewServer(dg.Mux)
+	defer ts.Close()
+
+	// setup beta
+	res, err := http.Get(ts.URL + "/api/v1/domain.glass")
 	if err != nil {
 		log.Fatal(err)
 	}
