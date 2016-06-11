@@ -6,19 +6,9 @@ go:
 services:
   - mysql
 
-before_install:
-  - go get github.com/axw/gocov/gocov
-  - go get github.com/mattn/goveralls
-  - go get github.com/golang/lint/golint
-  - go get -v -d
-
-
 before_script:
-  - printf "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  - printf -- "-----BEGIN RSA PRIVATE KEY-----\n${git_ssh}-----END RSA PRIVATE KEY-----\n" > ~/.ssh/id_rsa
-  - chmod 600 ~/.ssh/id_rsa
-  - eval `ssh-agent -s`
-  - ssh-add ~/.ssh/id_rsa
+  - git clone https://github.com/brimstone/projectbuilder.git projectbuilder
+  - export PROJECTBUILDER="$PWD/projectbuilder"
   - export PATH=$PATH:$GOPATH/bin
   - export OPENSHIFT_MYSQL_DB_HOST=127.0.0.1
   - export OPENSHIFT_MYSQL_DB_PORT=3306
@@ -28,5 +18,4 @@ before_script:
   - mysql -uroot -e 'create database domainglass'
 
 script:
-  - make pre-build coveralls
-  - '[ "$TRAVIS_BRANCH" != "master" ] || [ "$TRAVIS_PULL_REQUEST" != "false" ] || make deploy'
+  - make travis
