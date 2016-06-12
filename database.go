@@ -19,6 +19,7 @@ func InitDatabase() error {
 	beegoorm.RegisterModel(new(ClientRequest))
 	beegoorm.RegisterModel(new(Domain))
 	beegoorm.RegisterModel(new(Payment))
+	beegoorm.RegisterModel(new(WhoisServer))
 
 	// connect to our database
 	if os.Getenv("OPENSHIFT_MYSQL_DB_HOST") != "" {
