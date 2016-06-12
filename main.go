@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"regexp"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,9 +28,6 @@ func InitEngine() error {
 		}
 	})
 
-	// setup any api routes
-	Mux.GET("/api/v1/:domain", apiDomain)
-
 	// setup the static index file
 	// beta: Mux.StaticFile("/", "root/index.html")
 	Mux.GET("/", func(c *gin.Context) {
@@ -42,16 +38,12 @@ func InitEngine() error {
 		}
 	})
 
-	Mux.POST("/", func(c *gin.Context) {
-		domain := c.PostForm("domain")
-
-		matched, _ := regexp.MatchString("^[a-z0-9._]*\\.[a-z]{2,}$", domain)
-		if matched {
-			c.Redirect(302, "/"+domain)
-		} else {
-			c.Redirect(302, "/")
-		}
-	})
+	// setup any api routes
+	v1 := Mux.Group("/api/v1")
+	{
+		v1.POST("/new", addDomain)
+		v1.GET("/:domain", getDomain)
+	}
 
 	Mux.LoadHTMLGlob("tmpls/view*html")
 	// catch everything else with a static server
