@@ -1,7 +1,6 @@
 package main_test
 
 import (
-	"fmt"
 	"log"
 	"testing"
 
@@ -83,5 +82,10 @@ func TestGetWhoisInfo(*testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(result)
+	if len(result.Nameservers) == 0 {
+		log.Fatal("Expected Nameservers")
+	}
+	if len(result.Emails) == 0 {
+		log.Fatal("Expected Email addresses")
+	}
 }
