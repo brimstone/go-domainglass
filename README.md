@@ -28,8 +28,9 @@ API:
   - `checking`: true or false.
     - true: The system is checking attributes of the domain
     - false: The system is not keeping an eye on the domain. Check on `cooldowntime`
-  - `updated`: Time of last check of any type.
   - `cooldowntime`: Time of when the system will start checking the domain again.
+  - `email`: Email address alerts are sent
+  - `updated`: Time of last check of any type.
 - GET `/{{domain}}/{{verificationHash}}.json` Shows details about checks as json.
   - Same as the `/{{domain}}.json` checks above, including:
   - `checks`: Array of checks.
