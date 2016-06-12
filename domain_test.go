@@ -113,4 +113,5 @@ func Test_APINew(*testing.T) {
 	if res.StatusCode != 200 {
 		log.Fatal("Status code is ", res.Status, "expected 200")
 	}
+	fmt.Println(string(body))
 }
