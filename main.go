@@ -54,7 +54,7 @@ func InitEngine() error {
 
 // GetBind Determine the interface on which to bind the webserver
 func GetBind() string {
-	bind := "0.0.0.0:8080"
+	bind := "0.0.0.0:8081"
 	if os.Getenv("OPENSHIFT_GO_IP") != "" {
 		bind = fmt.Sprintf("%s:%s",
 			os.Getenv("OPENSHIFT_GO_IP"),
