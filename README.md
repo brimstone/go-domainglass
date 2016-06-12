@@ -20,8 +20,21 @@ UI:
 - `/about` Explains more about how this service works
 - `/{{domain}}` Shows report for last checks against domain or status that verification is pending
 - `/{{domain}}/{{verificationHash}}` Shows details about checks, lets user cancel service
-- `/{{domain}}/{{verificationHash}}/cancel` Terminates service
 
 API:
-- `/{{domain}}.json` Gets status of checks as json
-- `/{{domain}}/{{verificationHash}}.json` Shows details about checks as json
+- POST `/` Sets up domain to be checked.
+  - domain={{domain}}
+- GET `/{{domain}}.json` Gets status of checks as json
+  - `checking`: true or false.
+    - true: The system is checking attributes of the domain
+    - false: The system is not keeping an eye on the domain. Check on `cooldowntime`
+  - `updated`: Time of last check of any type.
+  - `cooldowntime`: Time of when the system will start checking the domain again.
+- GET `/{{domain}}/{{verificationHash}}.json` Shows details about checks as json.
+  - Same as the `/{{domain}}.json` checks above, including:
+  - `checks`: Array of checks.
+    - `updated`: Time when the check was last performed.
+    - `name`: Name of check.
+    - `value`: Value of the check the system is watching to change.
+- POST `/{{domain}}/{{verificationHash}}/cancel` Terminates service.
+  - confirm=true
