@@ -14,7 +14,7 @@ import (
 type Domain struct {
 	ID               int64 `orm:"pk;auto;column(id)"`
 	Name             string
-	VerificationCode string
+	VerificationCode string `orm:"unique"`
 	OwnerEmail       string
 	Payments         []*Payment `orm:"reverse(many)"`
 }
