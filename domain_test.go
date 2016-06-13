@@ -85,8 +85,8 @@ func Test_API(*testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, " expected 200")
+	if res.StatusCode != 400 {
+		log.Fatal("Status code is ", res.Status, " expected 400")
 	}
 	fmt.Println(string(body))
 }
