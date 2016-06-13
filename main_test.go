@@ -31,7 +31,7 @@ func Test_Root(*testing.T) {
 		log.Fatal(err)
 	}
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
 }
 

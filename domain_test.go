@@ -1,6 +1,8 @@
 package main_test
 
 import (
+	"bytes"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -24,7 +26,7 @@ func Test_NotBeta(*testing.T) {
 		log.Fatal(err)
 	}
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
 }
 
@@ -44,7 +46,7 @@ func Test_Beta(*testing.T) {
 		log.Fatal(err)
 	}
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
 }
 
@@ -64,7 +66,7 @@ func Test_Domain(*testing.T) {
 	}
 	res.Body.Close()
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
 }
 
@@ -78,12 +80,38 @@ func Test_API(*testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	_, err = ioutil.ReadAll(res.Body)
+	body, err := ioutil.ReadAll(res.Body)
+	res.Body.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res.StatusCode != 400 {
+		log.Fatal("Status code is ", res.Status, " expected 400")
+	}
+	fmt.Println(string(body))
+}
+
+func Test_APINew(*testing.T) {
+	var err error
+	ts := httptest.NewServer(dg.Mux)
+	defer ts.Close()
+
+	// setup beta
+	res, err := http.Post(
+		ts.URL+"/api/v1/new",
+		"application/x-www-form-urlencoded",
+		bytes.NewBuffer([]byte("domain=domain.glass")),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	body, err := ioutil.ReadAll(res.Body)
 	res.Body.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
+	fmt.Println(string(body))
 }
