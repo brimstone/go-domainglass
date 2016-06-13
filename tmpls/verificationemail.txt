@@ -1,1 +1,4 @@
-Our lucky winner!
+Someone has set you up domain.glass! But before you can get started, you must
+verify that this email is good. To verify your email, just follow this link:
+
+http://domain.glass/{{.DomainName}}/{{.VerificationCode}}
