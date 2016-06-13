@@ -26,7 +26,7 @@ func Test_NotBeta(*testing.T) {
 		log.Fatal(err)
 	}
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
 }
 
@@ -46,7 +46,7 @@ func Test_Beta(*testing.T) {
 		log.Fatal(err)
 	}
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
 }
 
@@ -66,7 +66,7 @@ func Test_Domain(*testing.T) {
 	}
 	res.Body.Close()
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
 }
 
@@ -86,7 +86,7 @@ func Test_API(*testing.T) {
 		log.Fatal(err)
 	}
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
 	fmt.Println(string(body))
 }
@@ -111,7 +111,7 @@ func Test_APINew(*testing.T) {
 		log.Fatal(err)
 	}
 	if res.StatusCode != 200 {
-		log.Fatal("Status code is ", res.Status, "expected 200")
+		log.Fatal("Status code is ", res.Status, " expected 200")
 	}
 	fmt.Println(string(body))
 }
