@@ -15,6 +15,7 @@ import (
 )
 
 type CheckNewDomain struct {
+	DomainName       string
 	VerificationCode string
 }
 
@@ -54,6 +55,7 @@ func (c CheckNewDomain) Run() {
 		return
 	}
 	c.VerificationCode = encoded
+	c.DomainName = domain.Name
 
 	TemplateText, err := template.
 		New("verificationemail.txt").
@@ -83,7 +85,7 @@ func (c CheckNewDomain) Run() {
 	}
 
 	err = SendEmail(domain.OwnerEmail,
-		"domain.glass Verification Code",
+		"domain.glass Verification Code for "+domain.Name,
 		msgText,
 		msgHTML,
 	)
