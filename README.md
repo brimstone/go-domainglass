@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/brimstone/go-domainglass.png?label=ready&title=Ready)](https://waffle.io/brimstone/go-domainglass)
 domainglass
 ===========
 [![Build Status](https://travis-ci.org/brimstone/go-domainglass.svg?branch=master)](https://travis-ci.org/brimstone/go-domainglass)
